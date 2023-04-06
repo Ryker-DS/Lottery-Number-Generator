@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lottery Number Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    
+    h1 {
+        margin-top: 50px;
+    }
+    
+    div {
+        margin-bottom: 10px;
+    }
+    
+    label {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    
+    input[type="number"] {
+        width: 60px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    #result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center mb-5">Lottery Number Generator</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group row">
+                        <label for="min-input" class="col-sm-4 col-form-label text-right">Minimum:</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="min-input" min="1" max="100" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="max-input" class="col-sm-4 col-form-label text-right">Maximum:</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="max-input" min="1" max="100" value="50">
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-primary btn-block" id="generate-btn">Generate Numbers</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row justify-content-center">
+                    <div class="col-sm-8">
+                        <div id="result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const minInput = document.getElementById('min-input');
+        const maxInput = document.getElementById('max-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultDiv = document.getElementById('result');
+
+        generateBtn.addEventListener('click', function() {
+            const min = parseInt(minInput.value);
+            const max = parseInt(maxInput.value);
+            if (min >= max) {
+            alert('The minimum value must be less than the maximum value.');
+            return;
+        }
+            const numbers = generateNumbers(min, max);
+            resultDiv.innerText = 'Generated numbers: ' + numbers.join(', ');
+        });
+
+        function generateNumbers(min, max) {
+            const numbers = [];
+            while (numbers.length < 6) {
+            const number = Math.floor(Math.random() * (max - min + 1)) + min;
+            if (!numbers.includes(number)) {
+                numbers.push(number);
+            }
+        }
+            return numbers;
+        }
+    </script>
+</body>
+</html>
